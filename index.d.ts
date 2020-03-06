@@ -181,12 +181,12 @@ export interface IMuiVirtualizedTableProps<TRow> {
   /**
    * If defined, will show column's header with matching name using `TableSortLabel`
    */
-  orderBy?: string;
+  orderBy?: string[];
 
   /**
    * The order of the sort direction
    */
-  orderDirection?: "asc" | "desc";
+  orderDirection?: { [key: string]: "asc" | "desc"; };
 
   /**
    * If defined, will add pagination to bottom of table and pass props to Material-UI's `<TablePagination>` component.

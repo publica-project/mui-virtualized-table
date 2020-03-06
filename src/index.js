@@ -9,7 +9,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Draggable from 'react-draggable';
-import { calcColumnWidth } from './utils';
+import { calcColumnWidth, getOrderDirection } from './utils';
 
 const FOOTER_BORDER_HEIGHT = 1;
 
@@ -327,11 +327,11 @@ const useCellRenderer = ({
           <TableSortLabel
             active={
               orderBy &&
-              (orderBy === column.name || orderBy === column.orderBy) &&
+              (orderBy.includes(column.name) || orderBy.includes(column.orderBy)) &&
               rowIndex === 0
             }
             style={{ width: 'inherit' }} // fix text overflowing
-            direction={orderDirection}
+            direction={getOrderDirection(column.name, orderDirection)}
             onClick={event =>
               column.onHeaderClick
                 ? column.onHeaderClick(event, { column })
@@ -498,8 +498,8 @@ MuiTable.propTypes = {
   rowHeight: PropTypes.number,
   columnWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
   includeHeaders: PropTypes.bool,
-  orderBy: PropTypes.string,
-  orderDirection: PropTypes.string,
+  orderBy: PropTypes.array,
+  orderDirection: PropTypes.object,
   onHeaderClick: PropTypes.func,
   onCellClick: PropTypes.func,
   onCellDoubleClick: PropTypes.func,

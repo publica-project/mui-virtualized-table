@@ -51,3 +51,12 @@ function getDeterministicColumnWidth(column, tableWidth) {
 function percentToFixedWidth(percentAsString, tableWidth) {
   return (parseFloat(percentAsString) / 100) * tableWidth;
 }
+
+export function getOrderDirection(columnName, directions) {
+  const direction = directions[columnName];
+
+  if (direction === undefined) {
+    return "desc";
+  }
+  return direction;
+}
